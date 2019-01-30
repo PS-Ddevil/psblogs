@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="img/favicon.ico"/>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -16,6 +17,10 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
     <title>PSBlogs</title>
     <style>
+        html, body{
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
         header{
             background: url(img/reinis-birznieks-646962-unsplash.jpg);
             background-size: cover;
@@ -36,7 +41,14 @@
         display: inline-block;
         line-height: 1em;
         }
-        
+        #my-name{
+            font-size: 50px;
+        }
+        @media screen and (max-width: 480px){
+            #my-name{
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -46,20 +58,22 @@
             <a href="#" data-target="mobo-bar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="#head">About Me</a></li>
-                <li><a href="#content"></a>Blogs</li>
-                <li><a href="foot">Contact</a></li>
+                <li><a href="#content">Blogs</a></li>
+                <li><a href="#insert">Add</a></li>
+                <li><a href="admin.html">Admin</a></li>
             </ul>
         </nav>
         <ul class="sidenav blue yellow-text" id="mobo-bar">
             <li><a href="#head" class="white-text">About Me</a></li>
             <li><a href="#content" class="white-text">Blogs</a></li>
-            <li><a href="#foot" class="white-text">Contact</a></li>
+            <li><a href="#insert" class="white-text">Contact</a></li>
+            <li><a href="admin.html" class="white-text">Admin</a></li>
         </ul>
         <div class="center">
             <img class="responsive-img circle hoverable" src="img/3.jpeg" width="200px" style="margin-top: 10%" data-aos="fade-down">
         </div>
         <div>
-            <p class="red-text center flow-text ml2" style="font-size: 50px"><span style="font-size: 70px">P</span>urushottam <span style="font-size: 70px">S</span>inha</p>
+            <p class="red-text center flow-text ml2" id="my-name">Purushottam Sinha</p>
         </div>
         <div class="center" style="padding-bottom: 20px;" data-aos="zoom-in">
             <i class='fab fa-facebook-f hoverable' style="font-size: 20px; color: white"></i>&nbsp;
@@ -68,7 +82,7 @@
         </div>
     </header>
 
-    <div class="blue center" style="padding-top: 20px;padding-bottom: 20px;">
+    <div class="blue center" style="padding-top: 20px;padding-bottom: 20px;" id="content">
     <div class="center z-depth-3 container" data-aos="fade-up">
         <ul class="tabs">
             <li class="tab"><a href="#politics">Politics</a></li>
@@ -116,31 +130,46 @@
         <div class="parallax">
             <img src="img/GettyImages-475540390_medium.jpg" alt="" class="responsive-img">
         </div>
-        <div class="red container" style="padding-top:20px; padding-bottom: 30px;">
+        <div class="red container" style="padding-top:20px; padding-bottom: 30px;margin-top: 100px;margin-bottom: 100px;" id="insert">
                 <div class="row">
-                    <form action="">
+                    <form action="" id="form-input">
                     <div class="col s12 m4">
-                        <div class="input-field">
-                            <input type="text" id="genre" class="white-text">
-                            <label for="genre" class="white-text">Genre</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="text" id="title" class="white-text">
+                       <div class="input-field">
+                            <input type="text" id="title" name="title" class="white-text">
                             <label for="title" class="white-text">Title</label>
                         </div>
-                        <div class="center">
-                            <button class="centre; white-text" style="background-color:transparent; border:none; cursor: pointer;">Submit</button>
+                        <div class="input-field">
+                            <select id="genre" name="genre">
+                                <option value="" disabled selected>Choose a Genre</option>
+                                <option value="sports">Sports</option>
+                                <option value="politics">Politics</option>
+                                <option value="lit">Literature</option>
+                                <option value="tech">Technology</option>
+                            </select>
+                            <label class="white-text">Genre</label>
+                        </div>
+                        <div class="input-field">
+                                <input type="text" id="pass" name="pass" class="white-text">
+                                <label for="pass" class="white-text">Password</label>
+                            </div>
+                        <div class="input-field center">
+                            <button class="btn">Submit</button>
                         </div>
                     </div>
                     <div class="col m8 s12">
                         <div class="input-field">
-                            <textarea style="height:300px;" id="content" class="white-text"></textarea>
+                            <textarea style="height:300px;" id="content" class="white-text" name="content"></textarea>
                             <label for="content" class="white-text">Content</label>
                         </div>
                     </div>
                 </form>
                 </div>
             </div>
+    </div>
+    <div class="center">
+        <h6 class="grey-text">
+            &copy; Purushottam Sinha
+        </h6>
     </div>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -164,6 +193,7 @@
             $('.sidenav').sidenav();
             $('.tabs').tabs();
             $('.parallax').parallax();
+            $('select').formSelect();
         })
     </script>
     <script>
@@ -195,14 +225,6 @@
     });
     </script>
     <script>
-        // $(document).ready(function(){
-        //     $('.blog').mouseover(function(){
-        //         $(this).addClass("z-depth-4");
-        //     });
-        //     $('.blog').mouseout(function(){
-        //         $(this).removeClass("z-depth-4");
-        //     })
-        // })
         $(document).on('mouseenter', '.blog', function(){
             $(this).addClass('z-depth-4');
         });
