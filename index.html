@@ -49,6 +49,25 @@
                 font-size: 30px;
             }
         }
+        .ml6 {
+        position: relative;
+        font-weight: 900;
+        font-size: 3.3em;
+        }
+
+        .ml6 .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.2em;
+        padding-right: 0.05em;
+        padding-bottom: 0.1em;
+        overflow: hidden;
+        }
+
+        .ml6 .letter {
+        display: inline-block;
+        line-height: 1em;
+        }
     </style>
 </head>
 <body>
@@ -126,45 +145,50 @@
         </div>
     </div>
     </div>
-    <div class="parallax-container valign-wrapper">
+    <div class="parallax-container valign-wrapper" style="height:200px">
         <div class="parallax">
             <img src="img/GettyImages-475540390_medium.jpg" alt="" class="responsive-img">
         </div>
-        <div class="red container" style="padding-top:20px; padding-bottom: 30px;margin-top: 100px;margin-bottom: 100px;" id="insert">
-                <div class="row">
-                    <form action="" id="form-input">
-                    <div class="col s12 m4">
-                       <div class="input-field">
-                            <input type="text" id="title" name="title" class="white-text">
-                            <label for="title" class="white-text">Title</label>
-                        </div>
-                        <div class="input-field">
-                            <select id="genre" name="genre">
-                                <option value="" disabled selected>Choose a Genre</option>
-                                <option value="sports">Sports</option>
-                                <option value="politics">Politics</option>
-                                <option value="lit">Literature</option>
-                                <option value="tech">Technology</option>
-                            </select>
-                            <label class="white-text">Genre</label>
-                        </div>
-                        <div class="input-field">
-                                <input type="text" id="pass" name="pass" class="white-text">
-                                <label for="pass" class="white-text">Password</label>
-                            </div>
-                        <div class="input-field center">
-                            <button class="btn">Submit</button>
-                        </div>
+        <h1 class="ml6">
+            <span class="text-wrapper">
+                <span class="letters white-text">Welcome :)</span>
+            </span>
+        </h1>
+    </div>
+    <div class="red" style="padding-top:20px; padding-bottom: 30px;" id="insert">
+        <div class="row">
+            <form action="" id="form-input">
+            <div class="col s12 m4">
+                <div class="input-field">
+                    <input type="text" id="title" name="title" class="white-text">
+                    <label for="title" class="white-text">Title</label>
+                </div>
+                <div class="input-field">
+                    <select id="genre" name="genre">
+                        <option value="" disabled selected>Choose a Genre</option>
+                        <option value="sports">Sports</option>
+                        <option value="politics">Politics</option>
+                        <option value="lit">Literature</option>
+                        <option value="tech">Technology</option>
+                    </select>
+                    <label class="white-text">Genre</label>
+                </div>
+                <div class="input-field">
+                        <input type="text" id="pass" name="pass" class="white-text">
+                        <label for="pass" class="white-text">Password</label>
                     </div>
-                    <div class="col m8 s12">
-                        <div class="input-field">
-                            <textarea style="height:300px;" id="content" class="white-text" name="content"></textarea>
-                            <label for="content" class="white-text">Content</label>
-                        </div>
-                    </div>
-                </form>
+                <div class="input-field center">
+                    <button class="btn">Submit</button>
                 </div>
             </div>
+            <div class="col m8 s12">
+                <div class="input-field">
+                    <textarea style="height:300px;" id="content" class="white-text" name="content"></textarea>
+                    <label for="content" class="white-text">Content</label>
+                </div>
+            </div>
+        </form>
+        </div>
     </div>
     <div class="center">
         <h6 class="grey-text">
@@ -231,6 +255,29 @@
         $(document).on('mouseleave', '.blog', function(){
             $(this).removeClass('z-depth-4');
         });
+    </script>
+    <script>
+     // Wrap every letter in a span
+    $('.ml6 .letters').each(function(){
+    $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+    });
+
+    anime.timeline({loop: true})
+    .add({
+        targets: '.ml6 .letter',
+        translateY: ["1.1em", 0],
+        translateZ: 0,
+        duration: 750,
+        delay: function(el, i) {
+        return 50 * i;
+        }
+    }).add({
+        targets: '.ml6',
+        opacity: 0,
+        duration: 1000,
+        easing: "easeOutExpo",
+        delay: 1000
+    });
     </script>
 </body>
 </html>
